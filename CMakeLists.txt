@@ -175,7 +175,11 @@ else()
 
     if (CPR_ENABLE_SSL)
         set(SSL_ENABLED ON CACHE INTERNAL "" FORCE)
-        set(CURL_CA_PATH "auto" CACHE INTERNAL "" FORCE)
+        if (ANDROID)
+            set(CURL_CA_PATH "/system/etc/security/cacerts" CACHE INTERNAL "" FORCE)
+        else()
+            set(CURL_CA_PATH "auto" CACHE INTERNAL "" FORCE)
+        endif()
 
         if(SSL_BACKEND_USED STREQUAL "WinSSL")
             set(CMAKE_USE_SCHANNEL ON CACHE INTERNAL "" FORCE)
